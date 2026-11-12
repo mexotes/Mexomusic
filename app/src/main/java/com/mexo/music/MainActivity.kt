@@ -265,7 +265,7 @@ object JamendoApi {
     private val client = OkHttpClient()
     suspend fun search(term: String): List<Track> = withContext(Dispatchers.IO) {
         val q = URLEncoder.encode(term, "UTF-8")
-        val url = "https://api.jamendo.com/v3.0/tracks/?client_id=${BuildConfig.JAMENDO_CLIENT_ID}&format=json&limit=30&search=$q&audioformat=mp32&imagesize=300&include=licenses"
+        val url = "https://api.jamendo.com/v3.0/tracks/?client_id=${BuildConfig.JAMENDO_CLIENT_ID}&format=json&limit=30&search=$q&type=single%20albumtrack&audioformat=mp32&imagesize=300&include=licenses"
         val request = Request.Builder().url(url).get().build()
         client.newCall(request).execute().use { response ->
             if (!response.isSuccessful) error("Jamendo API error: HTTP ${response.code}")
